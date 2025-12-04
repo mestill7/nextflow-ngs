@@ -1,21 +1,23 @@
 process SORTED_BAM_STEP {
-    publishDir "$project_dir/output/bam", mode: 'copy'
+    publishDir "${params.project_dir}/output/bam", mode: 'copy'
 
      
     input:
     tuple val(pair_id), path(sam_file)
 
     output:
-    tuple val(pair_id), path("${pair_id}.sorted.bam"), emit: bam
+    tuple val(pair_id), path("${pair_id}.sorted.bam"), path("${pair_id}.sorted.bam.bai"), emit: bam
  
     script:
     """
     samtools sort -@ ${task.cpus} -O BAM -o ${pair_id}.sorted.bam $sam_file
+    samtools index ${pair_id}.sorted.bam ${pair_id}.sorted.bam.bai
     """
 }
 
 process PICARD_RMDUPS_BAM {
-    publishDir "${project_dir}/output/bam", mode: 'copy'
+    publishDir "${params.project_dir}/output/bam", mode: 'copy'
+
     input:
     tuple val(pair_id), path(bam_file), path(bai_file)
 
@@ -32,14 +34,15 @@ process PICARD_RMDUPS_BAM {
     """
     else if ( params.experiment_type != "cutrun" )
     """
-    picard MarkDuplicates REMOVE_DUPLICATES=true I=${bam_file} O=${pair_id}.unique.sorted.rmdup.bam M=${pair_id}_marked_dup_metrics.txt 2> ${pair_id}.rmdup.log
+    picard MarkDuplicates REMOVE_DUPLICATES=true INPUT=${bam_file} OUTPUT=${pair_id}.unique.sorted.rmdup.bam METRICS_FILE=${pair_id}_marked_dup_metrics.txt 2> ${pair_id}.rmdup.log
     """
 
 }
 
 
 process CALC_INSERT_SIZE {
-    publishDir "${project_dir}/output/logs", mode: 'copy'
+    publishDir "${params.project_dir}/output/logs", mode: 'copy'
+
     input:
     tuple val(pair_id), path(bam_file)
     
@@ -60,7 +63,7 @@ process CALC_INSERT_SIZE {
 
 
 process RMDUP_TO_CHRBAM {
-    publishDir "${project_dir}/output/bam", mode: 'copy'
+    publishDir "${params.project_dir}/output/bam", mode: 'copy'
    
     input:
     tuple val(pair_id), path(bam_file)

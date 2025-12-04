@@ -1,5 +1,5 @@
 process READ_TRIM_UMI{
-    publishDir "${project_dir}/output/trim_fastq", mode: 'copy', pattern: "_trimming_report.txt"
+    publishDir "${params.project_dir}/output/trim_fastq", mode: 'copy', pattern: "_trimming_report.txt"
 
     input:
     tuple val(pair_id), path(reads)
@@ -19,7 +19,7 @@ process READ_TRIM_UMI{
 }
 
 process UMI_RMDUPS_BAM {
-    publishDir "${project_dir}/output/bam", mode: 'copy'
+    publishDir "${params.project_dir}/output/bam", mode: 'copy'
 
     input:
     tuple val(pair_id), path(bam_file), path(bai_file)

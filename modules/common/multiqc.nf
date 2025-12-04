@@ -1,5 +1,5 @@
 process RUN_MULTIQC {
-    publishDir "${project_dir}/output/multiqc", mode: 'copy'
+    publishDir "${params.project_dir}/output/multiqc", mode: 'copy'
 
     input:
     path("output")

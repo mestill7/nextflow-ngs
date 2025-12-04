@@ -1,5 +1,5 @@
 process ALIGNMENT_STEP  {
-    publishDir "${project_dir}/output/bam", mode: 'copy', pattern: "*.txt"
+    publishDir "${params.project_dir}/output/bam", mode: 'copy', pattern: "*.txt"
      
     input:
     tuple val(pair_id), path(trimmed_reads)
@@ -12,6 +12,6 @@ process ALIGNMENT_STEP  {
     sample_names = !params.pairedEnd ? "-U ${trimmed_reads[0]}" : "-1 ${trimmed_reads[0]} -2 ${trimmed_reads[1]}"
 
     """
-    hisat2 -p ${task.cpus} -x ${params.index_files}/${params.index_basename} ${sample_names} -S ${pair_id}.sam --summary-file ${pair_id}.txt --temp-directory \${PWD} 
+    hisat2 -p ${task.cpus} --rg-id ${pair_id} --rg SM:${pair_id} -x ${params.index_files}/${params.index_basename} ${sample_names} -S ${pair_id}.sam --summary-file ${pair_id}.txt --temp-directory \${PWD} 
     """
 }

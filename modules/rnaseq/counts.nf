@@ -1,5 +1,5 @@
 process COUNTS_STEP {
-    publishDir "$project_dir/output/counts", mode: 'copy'
+    publishDir "${params.project_dir}/output/counts", mode: 'copy'
 
     input:
     tuple val(pair_id), path(sorted_bam_file)
@@ -7,7 +7,9 @@ process COUNTS_STEP {
     output:
     path("${pair_id}.exon.txt"), emit: counts_exonic
     path("${pair_id}.gene.txt"), emit: counts_genic
- 
+    path("${pair_id}.exon.txt.summary"), emit: counts_exonic_summary
+    path("${pair_id}.gene.txt.summary"), emit: counts_genic_summary 
+
     script:
 
     paired_end = !params.pairedEnd ? "" : "-p"

@@ -1,13 +1,13 @@
 process READ_TRIM_GALORE_BASIC {
 
-    publishDir "${project_dir}/output/trim_fastq", mode: 'copy', pattern: "*_trimming_report.txt"
+    publishDir "${params.project_dir}/output/trim_fastq", mode: 'copy', pattern: "*_trimming_report.txt"
 
     input:
     tuple val(pair_id), path(reads)
 
     output:
     tuple val(pair_id), path("*_trimmed.fastq.gz"), emit: trimmed_reads
-    tuple path("*_trimming_report.txt"), emit: report
+    path("*_trimming_report.txt"), emit: report
 
     script:
     def paired_end = params.pairedEnd ? / --paired / : ''
@@ -30,7 +30,7 @@ process READ_TRIM_GALORE_BASIC {
 
 process READ_TRIM_GALORE_POLYA {
 
-    publishDir "${project_dir}/output/trim_fastq", mode: 'copy', pattern: "*_trimming_report.txt"
+    publishDir "${params.project_dir}/output/trim_fastq", mode: 'copy', pattern: "*_trimming_report.txt"
 
     input:
     tuple val(pair_id), path(reads)

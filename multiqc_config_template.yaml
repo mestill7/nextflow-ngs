@@ -69,13 +69,13 @@ module_order:
       anchor: "featurecounts_exonic"
       info: "Featurecounts mode: Assignment to exons"
       path_filters:
-        - '*.exon.counts.txt.summary'
+        - '*.exon.txt.summary'
   - featureCounts:
       name: "Featurecounts; Genic assignment"
       anchor: "featurecounts_genic"
       info: "Featurecounts mode: Assignment to full gene length"
       path_filters:
-        - '*.gene.counts.txt.summary'
+        - '*.gene.txt.summary'
 
 report_section_order:
   featurecounts_exonic:

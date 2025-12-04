@@ -1,5 +1,5 @@
 process CREATE_BED {
-    publishDir "${project_dir}/output/bed", mode: 'copy'
+    publishDir "${params.project_dir}/output/bed", mode: 'copy'
     input:
     tuple val(pair_id), path(bam_file), path(bai_file)
 

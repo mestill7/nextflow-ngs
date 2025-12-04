@@ -1,6 +1,6 @@
 process COUNTS_MATRIX {
     
-    publishDir "$project_dir/output/counts", mode: 'copy'
+    publishDir "${params.project_dir}/output/counts", mode: 'copy'
 
     input:
     path("output/counts/*txt")
@@ -21,28 +21,27 @@ process COUNTS_MATRIX {
     gene_counts = {}
     exon_counts = {}
     
-    for files in "output/counts/*txt":
-        if "gene.txt" in files:
+    for files in os.listdir("output/counts/"):
+        if files.endswith("gene.txt"):
             counts_dict = gene_counts
-        elif "exon.txt" in files:
+        elif files.endswith("exon.txt"):
             counts_dict = exon_counts
         else:
             continue
             
         sample = files.split(".")[0] 
         counts_dict[sample] = {}
-        with open(files, "r") as infile:
+        with open("output/counts/"+files, "r") as infile:
             next(infile)
             next(infile)
             for lines in infile:
-                lines = lines.strip().split("\\t")
+                lines = lines.strip().split("\t")
                 counts_dict[sample][lines[0]] = int(float(lines[-1]))
     
     gene_dataframe = pd.DataFrame(gene_counts)
     exon_dataframe = pd.DataFrame(exon_counts)
-    gene_dataframe.to_csv("featureCounts_genic.txt", sep='\\t')
-    exon_dataframe.to_csv("featureCounts_exonic.txt", sep='\\t')
-
+    gene_dataframe.to_csv("featureCounts_genic.txt", sep="\t")
+    exon_dataframe.to_csv("featureCounts_exonic.txt", sep="\t")
     """
 
 
