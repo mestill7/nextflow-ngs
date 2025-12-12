@@ -1,5 +1,5 @@
 process CLIP_DISCORDANT_SAMTOOL_CUTRUN {
-    publishDir "${project_dir}/output/bam", mode: 'copy'     
+    publishDir "${params.project_dir}/output/bam", mode: 'copy'     
     input:
     tuple val(pair_id), path(dis_bam)
 
@@ -14,7 +14,7 @@ process CLIP_DISCORDANT_SAMTOOL_CUTRUN {
 }
 
 process CLIP_DISCORDANT_BAMUTIL_CUTRUN {
-    publishDir "${project_dir}/output/bam", mode: 'copy'         
+    publishDir "${params.project_dir}/output/bam", mode: 'copy'         
     input:
     tuple val(pair_id), path(mapped_dis_bam)
 

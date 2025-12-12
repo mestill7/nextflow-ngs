@@ -21,7 +21,7 @@ process COUNTS_MATRIX {
     gene_counts = {}
     exon_counts = {}
     
-    for files in os.listdir("output/counts/"):
+    for files in os.listdir("${params.project_dir}output/counts/"):
         if files.endswith("gene.txt"):
             counts_dict = gene_counts
         elif files.endswith("exon.txt"):
@@ -31,7 +31,7 @@ process COUNTS_MATRIX {
             
         sample = files.split(".")[0] 
         counts_dict[sample] = {}
-        with open("output/counts/"+files, "r") as infile:
+        with open("${params.project_dir}output/counts/"+files, "r") as infile:
             next(infile)
             next(infile)
             for lines in infile:

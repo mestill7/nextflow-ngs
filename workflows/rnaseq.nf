@@ -12,6 +12,7 @@ include { CREATE_BW } from '../modules/common/bigwig'
 include { COUNTS_STEP } from '../modules/rnaseq/counts'
 include { COUNTS_MATRIX } from '../modules/rnaseq/counts_matrix'
 include { RUN_MULTIQC } from '../modules/common/multiqc'
+include { RUN_CLEANUP } from '../modules/common/cleanup'
 
 workflow RNASEQ {
     take:
@@ -31,6 +32,7 @@ workflow RNASEQ {
 
     counts_matrix = COUNTS_MATRIX(count_files_ch.counts_exonic)
     multiqc_report_file = RUN_MULTIQC(counts_matrix.count_matrix_genic.collect())
+    cleanup_file = RUN_CLEANUP(chrbam.bam.collect())
 
     emit:
     multiqc_report = multiqc_report_file.report

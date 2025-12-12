@@ -64,13 +64,13 @@ fn_ignore_paths:
     - '*/path/to/*_files/'
 
 module_order:
-  - featureCounts:
+  - featurecounts:
       name: "Featurecounts; Exonic assignment"
       anchor: "featurecounts_exonic"
       info: "Featurecounts mode: Assignment to exons"
       path_filters:
         - '*.exon.txt.summary'
-  - featureCounts:
+  - featurecounts:
       name: "Featurecounts; Genic assignment"
       anchor: "featurecounts_genic"
       info: "Featurecounts mode: Assignment to full gene length"
@@ -129,6 +129,12 @@ table_columns_visible:
     FastQC:
         percent_fails: False
         total_sequences: True
+    Featurecounts; Exonic assignment:
+        Assigned: True
+        percent_assigned: True
+    Featurecounts; Genic assignment:
+          Assigned: True
+          percent_assigned: True    
 
 table_columns_name:
     Featurecounts; Exonic assignment:

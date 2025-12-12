@@ -11,6 +11,7 @@ include { CREATE_BW } from '../modules/common/bigwig'
 include { CREATE_BED } from '../modules/common/bed'
 include { CALC_INSERT_SIZE } from '../modules/common/bam_processing'
 include { RUN_MULTIQC } from '../modules/common/multiqc'
+include { RUN_CLEANUP } from '../modules/common/cleanup'
 
 workflow CHIPSEQ {
     take:
@@ -28,9 +29,11 @@ workflow CHIPSEQ {
     bw_ch = CREATE_BW(chrbam.bam)
     bed_files_ch = CREATE_BED(chrbam.bam)
     if (params.pairedEnd) insert_size_ch = CALC_INSERT_SIZE(rmdup_bam.bam)
-    multiqc_ch = RUN_MULTIQC(bed_files_ch)
+    multiqc_report_file = RUN_MULTIQC(bed_files_ch.bed.collect())
+    cleanup_file = RUN_CLEANUP(chrbam.bam.collect())
+
 
     emit:
-    multiqc_report = multiqc_ch.report
+    multiqc_report = multiqc_report_file.report
 
 }

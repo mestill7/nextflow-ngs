@@ -1,5 +1,5 @@
 process SORT_DISCORDANT_CUTRUN {
-    publishDir "${project_dir}/output/bam", mode: 'copy'
+    publishDir "${params.project_dir}/output/bam", mode: 'copy'
     input:
     tuple val(pair_id), path(bam_file)
 

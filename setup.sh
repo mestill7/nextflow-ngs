@@ -1,5 +1,5 @@
-SINGULARITY_CACHE_DIR="/sc/arion/projects/Nestlerlab/shenl03_rna/aarthi/2025/li/test_nextflow_jun4/singularity_cache"
-SINGULARITY_TMP_DIR="/sc/arion/projects/Nestlerlab/shenl03_rna/aarthi/2025/li/test_nextflow_jun4/tmp"
+SINGULARITY_CACHE_DIR="/sc/arion/scratch/estilm01/singularity_cache"
+SINGULARITY_TMP_DIR="/sc/arion/scratch/estilm01/tmp"
 mkdir -p $SINGULARITY_CACHE_DIR
 mkdir -p $SINGULARITY_TMP_DIR  
 

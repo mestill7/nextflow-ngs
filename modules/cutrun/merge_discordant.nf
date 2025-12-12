@@ -1,5 +1,5 @@
 process MERGE_DISCORDANT_CUTRUN {
-    publishDir "${project_dir}/output/bam", mode: 'copy'
+    publishDir "${params.project_dir}/output/bam", mode: 'copy'
     cpus 1
      
     input:

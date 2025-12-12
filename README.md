@@ -6,6 +6,7 @@ RNA-seq workflow performs quality control, read trimming, alignment, feature cou
 
 ChIP-seq and Cut&Run workflows perform quality control, read trimming, alignment, generation of sorted bam, bigwig, tdf, indexed bam files and summarization using MultiQC.
 
+Future/planned software implementation: Picard CollectRnaSeqMetrics for RNA-seq datasets
 
 ## Dependency
 
