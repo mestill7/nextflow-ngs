@@ -12,6 +12,6 @@ process RUN_MULTIQC {
     script:
     qc_config = params.multiqc_config
     """
-    multiqc ${params.project_dir} --config ${qc_config} --force &> multiqc_summary_text.txt
+    multiqc ${params.project_dir}/output --config ${qc_config} --force &> multiqc_summary_text.txt
     """
 }

@@ -11,6 +11,7 @@ include { CALC_INSERT_SIZE } from '../modules/common/bam_processing'
 include { CREATE_BW } from '../modules/common/bigwig'
 include { COUNTS_STEP } from '../modules/rnaseq/counts'
 include { COUNTS_MATRIX } from '../modules/rnaseq/counts_matrix'
+include { FPKM_MATRIX } from '../modules/rnaseq/fpkm_matrix'
 include { RUN_MULTIQC } from '../modules/common/multiqc'
 include { RUN_CLEANUP } from '../modules/common/cleanup'
 
@@ -29,9 +30,9 @@ workflow RNASEQ {
     if (params.pairedEnd) insert_size_ch = CALC_INSERT_SIZE(rmdup_bam.bam)
     bw_ch = CREATE_BW(chrbam.bam)
     count_files_ch = COUNTS_STEP(rmdup_bam.bam)
-
-    counts_matrix = COUNTS_MATRIX(count_files_ch.counts_exonic)
-    multiqc_report_file = RUN_MULTIQC(counts_matrix.count_matrix_genic.collect())
+    counts_matrix = COUNTS_MATRIX(count_files_ch.counts_genic)
+    fpkm_matrix = FPKM_MATRIX(count_files_ch.counts_genic)   
+    multiqc_report_file = RUN_MULTIQC(fpkm_matrix.fpkm_matrix_genic.collect())
     cleanup_file = RUN_CLEANUP(chrbam.bam.collect())
 
     emit:

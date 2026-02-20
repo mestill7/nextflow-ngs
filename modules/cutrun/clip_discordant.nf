@@ -23,6 +23,6 @@ process CLIP_DISCORDANT_BAMUTIL_CUTRUN {
  
     script:
     """ 
-    bam clipOverlap --in ${mapped_dis_bam} --out ${pair_id}_clipped_dis.bam --stats --overlapsOnly
+    bam clipOverlap --in ${mapped_dis_bam} --out ${pair_id}_clipped_dis.bam --stats --overlapsOnly --poolSize 3000000
     """ 
 }
